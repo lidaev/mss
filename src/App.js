@@ -5,6 +5,8 @@ import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { db } from "./firebase.js";
 import { doc, onSnapshot } from "firebase/firestore";
+import {db} from "./firebase.js"
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -23,6 +25,10 @@ function App() {
 
     setIsDocumentSelected(true);
     setDocumentID(generatedRoomID);
+
+    setDoc(doc(db, "documents", generatedRoomID), {
+      content: ""
+    });
   };
 
   const handleDocumentIDChanged = (event) => {
