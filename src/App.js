@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import { useState } from "react";
 
 function App() {
+  const [documentID, setDocumentID] = useState("");
+
+  const handleCreateDoc = () => {
+    console.log("Creating document");
+  };
+
+  const handleDocumentIDChanged = (event) => {
+    const newID = event.target.value;
+    console.log(newID);
+    setDocumentID(newID);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Grid direction="column">
+        <Grid>
+          <Button onClick={handleCreateDoc}>Create new document</Button>
+        </Grid>
+        <Grid direction="row">
+          <TextField
+            onChange={handleDocumentIDChanged}
+            value={documentID}
+            placeholder="enter document ID"
+          ></TextField>
+          <Button onClick={handleCreateDoc}>Enter a room by ID</Button>
+        </Grid>
+      </Grid>
+      <Grid>
+        <TextField value="Document text goes here"></TextField>
+      </Grid>
     </div>
   );
 }
