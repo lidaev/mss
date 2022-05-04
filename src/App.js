@@ -4,11 +4,21 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 
+import {
+  updateDocument,
+  createDocument,
+  getDocumentContent,
+  subscribeToDocumentChanges,
+} from "./api";
+
 function App() {
   const [documentID, setDocumentID] = useState("");
+  const [documentContent, setDocumentContent] = useState("");
+  const [isDocumentSelected, setIsDocumentSelected] = useState(false);
 
   const handleCreateDoc = () => {
     console.log("Creating document");
+    createDocument(123);
   };
 
   const handleDocumentIDChanged = (event) => {
@@ -17,24 +27,55 @@ function App() {
     setDocumentID(newID);
   };
 
+  const getDocByID = () => {
+    getDocumentContent(documentID);
+    setIsDocumentSelected(true);
+    subscribeToDocumentChanges(documentID);
+  };
+
+  const handleDocumentContentChanged = (event) => {
+    const newContent = event.target.value;
+    setDocumentContent(newContent);
+    updateDocument(newContent, documentID);
+  };
+
+  const handleUnsubscribe = () => {
+    setIsDocumentSelected(false);
+  };
+
   return (
     <div className="App">
-      <Grid direction="column">
-        <Grid>
-          <Button onClick={handleCreateDoc}>Create new document</Button>
+      {isDocumentSelected ? (
+        <>
+          <Button onClick={handleUnsubscribe}>Choose another document</Button>
+          <Grid container>
+            <TextField
+              multiline
+              minRows={30}
+              onChange={handleDocumentContentChanged}
+              value={documentContent}
+              style={{ margin: 16, width: "90vw" }}
+            ></TextField>
+          </Grid>
+        </>
+      ) : (
+        <Grid container direction="column">
+          <Grid container style={{ margin: 16 }}>
+            <Button onClick={handleCreateDoc}>Create new document</Button>
+          </Grid>
+          <Grid container direction="row">
+            <TextField
+              onChange={handleDocumentIDChanged}
+              value={documentID}
+              placeholder="enter document ID"
+              style={{ margin: 16 }}
+            ></TextField>
+            <Button onClick={getDocByID} style={{ margin: 16 }}>
+              Enter a room by ID
+            </Button>
+          </Grid>
         </Grid>
-        <Grid direction="row">
-          <TextField
-            onChange={handleDocumentIDChanged}
-            value={documentID}
-            placeholder="enter document ID"
-          ></TextField>
-          <Button onClick={handleCreateDoc}>Enter a room by ID</Button>
-        </Grid>
-      </Grid>
-      <Grid>
-        <TextField value="Document text goes here"></TextField>
-      </Grid>
+      )}
     </div>
   );
 }
