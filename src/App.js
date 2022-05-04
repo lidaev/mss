@@ -9,6 +9,7 @@ import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 import { updateDocument, createDocument, getDocumentContent } from "./api";
+import { Typography } from "@mui/material";
 
 function App() {
   const [documentID, setDocumentID] = useState("");
@@ -25,7 +26,7 @@ function App() {
     setDocumentID(generatedRoomID);
 
     setDoc(doc(db, "documents", generatedRoomID), {
-      content: ""
+      content: "",
     });
   };
 
@@ -51,7 +52,7 @@ function App() {
     updateDocument(newContent, documentID);
 
     setDoc(doc(db, "documents", documentID), {
-      content: newContent
+      content: newContent,
     });
   };
 
@@ -65,6 +66,10 @@ function App() {
       {isDocumentSelected ? (
         <>
           <Button onClick={handleUnsubscribe}>Choose another document</Button>
+          <Typography>
+            Current document ID: {documentID}. Share it with your friends and
+            edit the doc together!
+          </Typography>
           <Grid container>
             <TextField
               multiline
