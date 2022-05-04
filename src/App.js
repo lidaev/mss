@@ -49,6 +49,10 @@ function App() {
     const newContent = event.target.value;
     setDocumentContent(newContent);
     updateDocument(newContent, documentID);
+
+    setDoc(doc(db, "documents", documentID), {
+      content: newContent
+    });
   };
 
   const handleUnsubscribe = () => {
