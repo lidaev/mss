@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 import {
   updateDocument,
   createDocument,
@@ -18,7 +20,12 @@ function App() {
 
   const handleCreateDoc = () => {
     console.log("Creating document");
-    createDocument(123);
+    const generatedRoomID = uuidv4();
+
+    createDocument(generatedRoomID);
+
+    setIsDocumentSelected(true);
+    setDocumentID(generatedRoomID);
   };
 
   const handleDocumentIDChanged = (event) => {
