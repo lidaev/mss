@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
+import {unsub} from "./firebase.js"
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,6 +27,7 @@ function App() {
 
     setIsDocumentSelected(true);
     setDocumentID(generatedRoomID);
+    unsub("111-111")
   };
 
   const handleDocumentIDChanged = (event) => {
