@@ -11,11 +11,10 @@ const firebaseConfig = {
   projectId: "mss-editor",
   storageBucket: "mss-editor.appspot.com",
   messagingSenderId: "936846406055",
-  appId: "1:936846406055:web:a88a8c51d81fc9f1450682"
+  appId: "1:936846406055:web:a88a8c51d81fc9f1450682",
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
-

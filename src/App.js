@@ -3,17 +3,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
-import {db} from "./firebase.js"
+import { db } from "./firebase.js";
 import { doc, onSnapshot } from "firebase/firestore";
 
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  updateDocument,
-  createDocument,
-  getDocumentContent,
-  subscribeToDocumentChanges,
-} from "./api";
+import { updateDocument, createDocument, getDocumentContent } from "./api";
 
 function App() {
   const [documentID, setDocumentID] = useState("");
@@ -43,7 +38,7 @@ function App() {
     onSnapshot(doc(db, "documents", documentID), (doc) => {
       console.log("Current data: ", doc.data());
       setDocumentContent(doc.data().content);
-  });
+    });
   };
 
   const handleDocumentContentChanged = (event) => {
@@ -54,6 +49,7 @@ function App() {
 
   const handleUnsubscribe = () => {
     setIsDocumentSelected(false);
+    setDocumentID("");
   };
 
   return (
