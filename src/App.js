@@ -4,8 +4,6 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { db } from "./firebase.js";
-import { doc, onSnapshot } from "firebase/firestore";
-import {db} from "./firebase.js"
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
 import { v4 as uuidv4 } from "uuid";
